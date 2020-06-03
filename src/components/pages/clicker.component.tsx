@@ -27,7 +27,6 @@ export const ClickerComponent: React.FC<ClickerComponentProps> = ({clicks, addCl
 // This will map a state value to a property that this component will get access to
 // Functionally the 'clicks' prop will reflect the state of the clickerState.clicks
 const mapStateToProps = (state: IState) => {
-    console.log(state);
     return {
         clicks: state.clickerState.clicks
     }

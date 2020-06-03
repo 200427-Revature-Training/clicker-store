@@ -18,7 +18,7 @@ export const DisplayComponent: React.FC<DisplayComponentProps> = ({pokemon}) => 
             <Grid container direction="row" spacing={9} alignItems="flex-start">
 
                 {pokemon.map(p => { return (
-                    <Grid item xl={3} sm={3}>
+                    <Grid key={p.id} item xl={3} sm={3}>
                         <PokemonCardComponent pokeName={p.name} pokeImg={p.img} />
                     </Grid>
                 )})}
