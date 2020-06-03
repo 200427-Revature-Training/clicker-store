@@ -10,6 +10,8 @@ Forewarning: Implementations of Redux require quite a bit of initial setup which
     A. Application Level
         1. Define state store (mostly the same in every application)
         2. State index file (Aggregation of all state in the app - should be updated with new state)
+        3. Define a Provider component at a high level that manages the Redux state
+                (similar to how Router (HashRouter, BrowserRouter) manage routing state)
     B. Per state category
         1. Reducer - Processes actions to affect state
         2. Actions - The actions that can produced

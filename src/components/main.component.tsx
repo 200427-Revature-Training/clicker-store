@@ -1,8 +1,8 @@
 import React from 'react';
 import {Switch, BrowserRouter, Route} from 'react-router-dom';
 import NavComponent from './nav.component';
-import { ClickerComponent } from './pages/clicker.component';
-import { StoreComponent } from './pages/store.component';
+import ClickerComponent from './pages/clicker.component';
+import StoreComponent from './pages/store.component';
 import { DisplayComponent } from './pages/display.component';
 import "./main.component.css";
 

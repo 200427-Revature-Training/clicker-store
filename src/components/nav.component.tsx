@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { AppBar, Toolbar, IconButton, Typography, makeStyles, Menu, MenuItem } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { IState } from '../reducers';
+import { compose } from 'redux';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -15,7 +18,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const NavComponent: React.FC<RouteComponentProps> = (props) => {
+export interface NavComponentProps {
+    clicks: number;
+}
+
+export const NavComponent: React.FC<RouteComponentProps & NavComponentProps> = (props) => {
 
     const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
     const classes = useStyles();
@@ -25,6 +32,9 @@ export const NavComponent: React.FC<RouteComponentProps> = (props) => {
             <Toolbar>
                 <Typography variant="h6" className={classes.title}>
                     Clicker Store
+                </Typography>
+                <Typography variant="h6">
+                    Clicks: {props.clicks}
                 </Typography>
                 <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu"
                     onClick={(e: React.MouseEvent<HTMLButtonElement>) => setMenuAnchor(e.currentTarget)}    
@@ -48,4 +58,12 @@ export const NavComponent: React.FC<RouteComponentProps> = (props) => {
     )
 }
 
-export default withRouter(NavComponent);
+const mapStateToProps = (state: IState) => {
+    return {
+        clicks: state.clickerState.clicks
+    }
+}
+
+const mapDispatchToProps = {};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavComponent));
