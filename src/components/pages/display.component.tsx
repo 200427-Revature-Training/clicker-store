@@ -1,11 +1,15 @@
 import React from 'react';
 import { Typography, Grid } from '@material-ui/core';
 import { PokemonCardComponent } from './pokemon-card.component';
+import { IState } from '../../reducers';
+import { connect } from 'react-redux';
+import { Pokemon } from '../../models/Pokemon';
 
-export const DisplayComponent: React.FC = () => {
-    
-    const data = [undefined, undefined];
-    const iterations = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+interface DisplayComponentProps {
+    pokemon: Pokemon[]
+}
+
+export const DisplayComponent: React.FC<DisplayComponentProps> = ({pokemon}) => {
 
     return (
         <section>
@@ -13,9 +17,9 @@ export const DisplayComponent: React.FC = () => {
 
             <Grid container direction="row" spacing={9} alignItems="flex-start">
 
-                {iterations.map(i => { return (
+                {pokemon.map(p => { return (
                     <Grid item xl={3} sm={3}>
-                        <PokemonCardComponent pokeName={data[0]} pokeImg={data[1]} />
+                        <PokemonCardComponent pokeName={p.name} pokeImg={p.img} />
                     </Grid>
                 )})}
 
@@ -23,3 +27,15 @@ export const DisplayComponent: React.FC = () => {
         </section>
     )
 }
+
+const mapStateToProps = (state: IState) => {
+    return {
+        pokemon: state.pokemonStoreState.collectedPokemon
+    }
+}
+
+const mapDispatchToProps = {
+
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DisplayComponent);

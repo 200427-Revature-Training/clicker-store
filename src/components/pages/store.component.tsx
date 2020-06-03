@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./store.component.css";
 import { Typography, Button } from '@material-ui/core';
 import { PokemonCardComponent } from './pokemon-card.component';
@@ -7,6 +7,7 @@ import { spendClicks } from '../../actions/clicker.actions';
 import { buyPokemon } from '../../actions/pokemon.actions';
 import { connect } from 'react-redux';
 import { Pokemon } from '../../models/Pokemon';
+import { getPokemon } from '../../remotes/poke.remote';
 
 interface StoreComponentProps {
     clicks: number;
@@ -17,9 +18,15 @@ interface StoreComponentProps {
 
 export const StoreComponent: React.FC<StoreComponentProps> = (props) => {
     const {pokemon} = props;
+    const [purchasePending, setPurchasePending] = useState(false);
 
-    const buyPokemon = () => {
+    const buyPokemon = async () => {
+        setPurchasePending(true)
         props.spendClicks(25);
+        const randomId: number = Math.floor(Math.random()*806)+1;
+        const pokemon = await getPokemon(randomId);
+        props.buyPokemon(pokemon);
+        setPurchasePending(false);
     }
 
     return <div id="flex-container">
@@ -35,7 +42,7 @@ export const StoreComponent: React.FC<StoreComponentProps> = (props) => {
 
 
             <Button color="primary" size="large" variant="contained"
-                disabled={props.clicks < 25} onClick={buyPokemon}
+                disabled={props.clicks < 25 || purchasePending} onClick={buyPokemon}
             >Buy Pokemon</Button>
 
         </section>

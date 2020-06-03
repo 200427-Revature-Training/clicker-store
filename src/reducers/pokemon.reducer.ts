@@ -13,9 +13,10 @@ export const pokemonReducer = (state: PokemonStoreState = initialState,
         switch(action.type) {
             case pokemonActionTypes.BUY_POKEMON: {
                 let pokeArray = state.collectedPokemon;
-                if (state.collectedPokemon.some(p => 
+                if (!state.collectedPokemon.some(p => 
                     p.id === action.payload.pokemon.id)) {
-                        pokeArray = [...pokeArray, action.payload.pokemon].sort();
+                        pokeArray = [...pokeArray, action.payload.pokemon]
+                            .sort((a, b) => a.id - b.id);
                     }
                 return {
                     ...state,
