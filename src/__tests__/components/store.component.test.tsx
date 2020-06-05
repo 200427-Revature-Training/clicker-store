@@ -50,7 +50,7 @@ describe('<StoreComponent />', () => {
         expect(commonProps.spendClicks).toBeCalled();
     })
 
-    test('clicking button should cause remote retrieve pokemon to be passed to buyPokemon', () => {
+    test('clicking button should cause remote retrieve pokemon to be passed to buyPokemon', async () => {
         const pokemon = {
             id: 1,
             name: 'pokemon',
@@ -60,14 +60,12 @@ describe('<StoreComponent />', () => {
         const props = { ...commonProps, clicks: 25 };
         const wrapper = mount(<StoreComponent {...props } />);
         const button = wrapper.find('#poke-buy-button').first();
-        act(() => {
+        await act(async () => {
             button.simulate('click');
-            wrapper.update();
-            wait();
-            expect(commonProps.spendClicks).toBeCalled();
-            expect(mockGetPokemon).toBeCalled();
-            expect(commonProps.buyPokemon).toBeCalledWith(pokemon);
         }); 
+        expect(commonProps.spendClicks).toBeCalled();
+        expect(mockGetPokemon).toBeCalled();
+        expect(commonProps.buyPokemon).toBeCalledWith(pokemon);
     })
 
 });
