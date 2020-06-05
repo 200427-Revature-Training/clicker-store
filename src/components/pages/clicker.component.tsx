@@ -5,7 +5,7 @@ import { IState } from '../../reducers';
 import { addClicks } from '../../actions/clicker.actions';
 import { connect } from 'react-redux';
 
-interface ClickerComponentProps {
+export interface ClickerComponentProps {
     clicks: number;
     addClicks: (clicks: number) => void;
 }
