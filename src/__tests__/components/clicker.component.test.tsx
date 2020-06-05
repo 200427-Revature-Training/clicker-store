@@ -44,7 +44,6 @@ describe('clicker.component', () => {
         button.simulate('click');
 
         expect(props.addClicks).toBeCalled();
-
     });
 
 

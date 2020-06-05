@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { Pokemon } from '../../models/Pokemon';
 import { getPokemon } from '../../remotes/poke.remote';
 
-interface StoreComponentProps {
+export interface StoreComponentProps {
     clicks: number;
     pokemon: Pokemon | undefined;
     spendClicks: (clicks: number) => void;
@@ -26,22 +26,20 @@ export const StoreComponent: React.FC<StoreComponentProps> = (props) => {
         const randomId: number = Math.floor(Math.random()*806)+1;
         const pokemon = await getPokemon(randomId);
         props.buyPokemon(pokemon);
-        setPurchasePending(false);
+        // setPurchasePending(false);
     }
 
     return <div id="flex-container">
         <header>
             <Typography variant="h2" component="h2">Store</Typography>
-
         </header>
         <section>
-
             <PokemonCardComponent 
                 pokeName={pokemon ? pokemon.name : undefined} 
                 pokeImg={pokemon ? pokemon.img : undefined } />
 
-
-            <Button color="primary" size="large" variant="contained"
+            <Button 
+                id="poke-buy-button" color="primary" size="large" variant="contained"
                 disabled={props.clicks < 25 || purchasePending} onClick={buyPokemon}
             >Buy Pokemon</Button>
 
